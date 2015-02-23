@@ -1,11 +1,13 @@
+== Installation notes
+
 Install JRuby 1.7.9
 
 Dowlnoad Apache Mahout
 http://archive.apache.org/dist/mahout/0.9/mahout-distribution-0.9-src.zip
-and descomprese it at /bin/mahout
+and descomprese it at <tt>/bin/mahout</tt>
 
 Create enviroment var at you bash.rc or barch.profile including 
-export MAHOUT_DIR=/bin/mahout
+<tt>export MAHOUT_DIR=/bin/mahoutp</tt>
 
 Verified you have installed Virtual Java Machine (VJM)
 
