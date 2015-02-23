@@ -1,28 +1,12 @@
-== README
+Install JRuby 1.7.9
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Dowlnoad Apache Mahout
+http://archive.apache.org/dist/mahout/0.9/mahout-distribution-0.9-src.zip
+and descomprese it at /bin/mahout
 
-Things you may want to cover:
+Create enviroment var at you bash.rc or barch.profile including 
+export MAHOUT_DIR=/bin/mahout
 
-* Ruby version
+Verified you have installed Virtual Java Machine (VJM)
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Thats all. Procede as usual.
