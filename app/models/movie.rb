@@ -5,5 +5,5 @@ class Movie < ActiveRecord::Base
   #image_url: poster url
   #genders: string
   
-  attr_accessible :id, :name, :image_url, :genders
+#   attr_accessor :id, :name, :image_url, :genders
 end

@@ -5,6 +5,7 @@ class Rating < ActiveRecord::Base
   #user_id
   #movie_id
   #value -> rating
-  #count -> total voted
-  attr_accessible :id, :user_id, :movie_id, :value, :count
+#   #count -> total voted
+#   attr_accessible :id, :user_id, :movie_id, :value, :count
+
 end

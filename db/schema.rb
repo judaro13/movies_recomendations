@@ -23,17 +23,18 @@ ActiveRecord::Schema.define(version: 20150222222004) do
 
   create_table "ratings", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "movie_id"
+    t.integer  "movie_id",   limit: 8
     t.integer  "value"
-    t.integer  "count"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "predict"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   create_table "users", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.string   "image_url",  limit: 255
     t.string   "nick",       limit: 255
+    t.integer  "twitter_id", limit: 8
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end

@@ -1,28 +1,21 @@
 class MoviesController < ApplicationController
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
 
-  # GET /movies
-  # GET /movies.json
   def index
-    @movies = Movie.all
+    @movies = Movie.all.paginate(:page => params[:page], :per_page => 28)
   end
 
-  # GET /movies/1
-  # GET /movies/1.json
   def show
+
   end
 
-  # GET /movies/new
   def new
     @movie = Movie.new
   end
 
-  # GET /movies/1/edit
   def edit
   end
 
-  # POST /movies
-  # POST /movies.json
   def create
     @movie = Movie.new(movie_params)
 
@@ -37,8 +30,6 @@ class MoviesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /movies/1
-  # PATCH/PUT /movies/1.json
   def update
     respond_to do |format|
       if @movie.update(movie_params)
@@ -51,8 +42,6 @@ class MoviesController < ApplicationController
     end
   end
 
-  # DELETE /movies/1
-  # DELETE /movies/1.json
   def destroy
     @movie.destroy
     respond_to do |format|

@@ -1,0 +1,17 @@
+%p#notice= notice
+
+.row
+  .col-sm-3.col-xs-12
+    = image_tag  @movie.image_url, style: "max-height: 500px;max-width: 200px;"
+    %p
+      %strong Id:
+      = @movie.id
+    %p
+      %strong Name:
+      = @movie.name
+    %p
+      %strong Genders:
+      = @movie.genders
+= link_to 'Edit', edit_movie_path(@movie)
+|
+\#{link_to 'Back', movies_path}

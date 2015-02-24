@@ -1,0 +1,12 @@
+#album.releases.spacer
+  %h3
+    Movies
+  .row
+    - @movies.each do |movie|
+      .col-sm-3.col-xs-12
+        .album.animated.fadeInUp
+          %img.img-responsive{:alt => "music theme", :src => movie.image_url, styles: "height: '199px'"}/
+          .albumdetail
+            %h5 
+              =link_to movie.name, movie_path(movie)
+    = will_paginate @movies

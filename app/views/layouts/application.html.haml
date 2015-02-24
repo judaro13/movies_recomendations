@@ -1,0 +1,40 @@
+!!!
+%html
+  %head
+    %title MoviesRecomendations
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+  %body
+    .navbar-wrapper
+      .container
+        #top-nav.navbar.navbar-inverse.navbar-fixed-top.animated.fadeInDown{:role => "navigation"}
+          .container
+            .navbar-header
+              / Logo Starts
+              %a.navbar-brand{:href => "#home"}
+                Movies Recommender
+              %button.navbar-toggle.collapsed{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+                %span.sr-only Toggle navigation
+                %span.icon-bar
+                %span.icon-bar
+                %span.icon-bar
+            .navbar-collapse.collapse
+              %ul.nav.navbar-nav.navbar-right
+                %li.active
+                  %a{:href => users_path} Users
+                %li
+                  %a{:href => movies_path} Movies
+            
+    .container.overlay
+      #home.homeinfo
+        = yield
+      
+    #footer
+      .container
+        Something here
+        
+        
+        
+        
+        

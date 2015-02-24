@@ -1,0 +1,57 @@
+#album.releases.spacer
+  %h3
+    = @user.name + " | "+'#'+@user.nick
+  .row
+    .col-sm-3.col-xs-5
+      - img = @user.image_url || 'http://bit.ly/1LyW7qK'
+      = image_tag  img.gsub('_normal',''), style: "max-height: 500px;max-width: 200px;"
+      %p
+      %p
+        %strong Id:
+        = @user.id
+      %p
+        %strong Voted Movies:
+        = @user.voted_movies.count
+    .col-sm-9.col-xs-7
+      %h3
+        Suggested Movies
+      %p
+        %h5
+          Modify Suggestions
+        .form-group
+          = form_tag user_path(@user), method: :get, class: 'form-inline' do
+            %label Model Reccomender
+            =select_tag "recommender", options_for_select(model_recomend_array, model_recomend_array_selected), class: 'form-control'
+            %label Similarity
+            =select_tag "similarity", options_for_select(similarity_array, similarity_array_selected), class: 'form-control'
+            %label neighborhood
+            =select_tag "size", options_for_select(neighborhood_array, neighborhood_array_selected), 
+class: 'form-control'
+            =submit_tag("Go!", class: 'btn btn-primary')
+      -@recommender.recommend(@user.id, 10, nil).each do |m_pair|
+        -movie = Movie.find(m_pair.first)
+        .col-sm-3.col-xs-7
+          .album2.animated.fadeInUp
+            %img.img-responsive{:alt => "music theme", :src => movie.image_url, styles: "height: '160px'"}/
+            .albumdetail
+              %h5 
+                =link_to movie.name, movie_path(movie)
+              Estimate:
+              = m_pair.last
+              =@user.ratings.where(movie_id: m_pair.first).first.to_s
+    %p
+    .col-sm-12.col-xs-12
+      %h3
+        Voted Movies
+      -@user.voted_movies.limit(8).each do |movie|
+        .col-sm-3.col-xs-7
+          .album2.animated.fadeInUp
+            %img.img-responsive{:alt => "music theme", :src => movie.image_url, styles: "height: '199px'"}/
+            .albumdetail
+              %h5 
+                =link_to movie.name, movie_path(movie)
+              %p 
+                Rating:
+                = movie.ratings.where(user_id: @user.id).first.value
+
+  = link_to 'Back',users_path

@@ -2,10 +2,10 @@ namespace :users do
   desc "TODO"
   task load: :environment do
     puts 'begin'
-    f = File.open("/tmp/users.dat", 'r+')
+    f = File.open("/home/juliana/Uniandes/project/movies_recomendations/db/import-users.csv", 'r+')
     f.each_line do |line|
       ll = line.chomp.split('::')
-      User.create(id: ll.first, twitter_id: ll.last)
+      User.create(id: ll[0], twitter_id: ll[1], name: ll[2], nick: ll[3],image_url: ll[4])      
       print '.'
     end
     f.close
@@ -29,7 +29,7 @@ namespace :users do
         uu = client.user(u.twitter_id.to_i)
         u.set(name: uu.name,
               image_url: uu.profile_image_url.to_s,
-              handle: uu.handle)
+              nick: uu.handle)
         print '.'
       rescue Exception => e 
         puts e

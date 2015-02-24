@@ -4,12 +4,19 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.all.paginate(:page => params[:page], :per_page => 28)
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    similarity = params['similarity'] || "PearsonCorrelationSimilarity"
+    recommender = params['recommender'] || "GenericUserBasedRecommender"
+    size = params['size'] || 10
+    path = Rails.root.to_s+'/db/loaded-raitings.csv'
+    values = {:similarity => similarity, :recommender => recommender, :neighborhood_size => size.to_i}
+    @recommender = JrubyMahout::Recommender.new(values) 
+    @recommender.data_model = JrubyMahout::DataModel.new('file', { :file_path => path  }).data_model
   end
 
   # GET /users/new
