@@ -14,7 +14,10 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    if @user.ratings.count > 0
+    if q = params[:q]
+      q = "%#{q}%"
+      @movies = Movie.where("name like ? or genders like ?",q,q).paginate(:page => params[:page], :per_page => 28)
+    elsif @user.ratings.count > 0
       similarity = params['similarity'] || "PearsonCorrelationSimilarity"
       recommender = params['recommender'] || "GenericUserBasedRecommender"
       size = params['size'] || 10
