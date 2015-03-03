@@ -1,6 +1,6 @@
 #album.releases.spacer
   %h3
-    = @user.name + " | "+'@'+@user.nick.to_s
+    = @user.name.to_s + " | "+'@'+@user.nick.to_s
   .row
     .col-sm-3.col-xs-5
       - img = @user.image_url || 'http://bit.ly/1LyW7qK'

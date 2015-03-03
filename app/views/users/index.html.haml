@@ -12,16 +12,17 @@
     Users
   .row
     - @users.each do |user|
-      .col-sm-3.col-xs-12
-        .album.animated.fadeInUp
-          - img = user.image_url || 'http://bit.ly/1LyW7qK'
-          %img.img-responsive{:alt => "music theme", :src => img.gsub('_normal','') , styles: "height: '199px'"}/
-          .albumdetail
-            %h5 
-              =link_to user.name, user_path(user)
-            %p
-              ="@"+user.nick.to_s
-              %br
-              Voted Movies
-              =user.voted_movies.count
+      =link_to user_path(user) do
+        .col-sm-3.col-xs-12
+          .album.animated.fadeInUp
+            - img = user.image_url || 'http://bit.ly/1LyW7qK'
+            %img.img-responsive{:alt => "music theme", :src => img.gsub('_normal','') , styles: "height: '199px'"}/
+            .albumdetail
+              %h5 
+                =user.name
+              %p
+                ="@"+user.nick.to_s
+                %br
+                Voted Movies
+                =user.voted_movies.count
     = will_paginate @users
