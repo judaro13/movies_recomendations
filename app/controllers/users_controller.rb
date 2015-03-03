@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, except: [:index]
 
   # GET /users
   # GET /users.json
@@ -8,7 +8,7 @@ class UsersController < ApplicationController
       q = "%#{q}%"
       @users = User.where("name like ? or nick like ? or id = ?",q,q,q).paginate(:page => params[:page], :per_page => 28)
     end
-    @users ||= User.all.paginate(:page => params[:page], :per_page => 28)
+    @users ||= User.all.paginate(:page => params[:page], :per_page => 20)
   end
 
   # GET /users/1
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
       recommender = params['recommender'] || "ItemAverageRecommender"
       path = Rails.root.to_s+'/db/loaded-raitings.csv'
       @recommender = JrubyMahout::Recommender.new({:recommender => recommender}) 
-      @recommender.data_model = JrubyMahout::DataModel.new('file', { :file_path => path  }).data_model
+      @recommender.data_model = JrubyMahout::DataModel.new('file', { :file_path => path }).data_model
     end
   end
 
@@ -75,6 +75,25 @@ class UsersController < ApplicationController
     @user.destroy
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+  
+  def vote
+    if rank = @user.ratings.where(movie_id: params[:movie_id]).first
+      rank.value = params[:value].to_i
+      rank.predict = false
+      rank.save
+    else
+      if @user.ratings.create(value: params[:value].to_i, movie_id: params[:movie_id].to_i, predict: false)
+        path = Rails.root.to_s+'/db/loaded-raitings.csv'
+        open(path, 'a') do |f|
+          f << "#{@user.id},#{params[:movie_id]},#{params[:value]}\n"
+        end
+      end
+    end
+    respond_to do |format|
+      format.html { redirect_to user_path(@user), notice: 'Well done!' }
       format.json { head :no_content }
     end
   end

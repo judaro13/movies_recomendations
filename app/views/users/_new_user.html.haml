@@ -25,15 +25,8 @@
             =submit_tag("Go!", class: 'btn btn-primary')
       -@recommender.recommend(1, 20, nil).each do |m_pair|
         -movie = Movie.find(m_pair.first)
-        .col-sm-3.col-xs-7
-          .album2.animated.fadeInUp
-            %img.img-responsive{:alt => "music theme", :src => movie.image_url, styles: "height: '160px'"}/
-            .albumdetail
-              %h5 
-                =link_to movie.name, movie_path(movie)
-              Estimate:
-              = m_pair.last
-              =@user.ratings.where(movie_id: m_pair.first).first.to_s
+        =render 'movie', movie: movie, m_pair: m_pair 
+        
     %p
 
   = link_to 'Back',users_path

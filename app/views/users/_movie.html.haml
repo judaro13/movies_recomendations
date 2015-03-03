@@ -1,0 +1,14 @@
+.col-sm-3.col-xs-7
+  .album2{style: 'height: 320px;'}
+    .animated.fadeInUp
+      %img.img-responsive{:alt => "music theme", :src => movie.image_url, styles: "height: '160px'"}/
+      .albumdetail
+        %h5 
+          =link_to movie.name, movie_path(movie)
+        Estimate:
+        = m_pair.last
+        %br
+        = form_tag vote_user_path(@user), class: 'form-inline' do
+          =hidden_field_tag 'movie_id', movie.id
+          =select_tag "value", options_for_select([[10,10],[9,9],[8,8],[7,7],[6,6],[5,5],[4,4],[3,3],[2,2],[1,1]]), class: 'form-control'
+          =submit_tag("Vote!", class: 'btn btn-primary')
