@@ -3,7 +3,7 @@ namespace :tests do
     puts 'begin'
     max = 34760
     
-    (1..9).each do |i|
+    [5,9].each do |i|
       puts i
       puts "*"*10
       file_path = "/home/juliana/Uniandes/project/movies_recomendations/db/#{i}0-raitings.csv"
