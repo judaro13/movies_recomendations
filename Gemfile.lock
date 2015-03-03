@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/judaro13/jruby_mahout.git
-  revision: 34457e1c159886da29ab047be2caf1979573895d
+  revision: 0fd805c85b14439b20d35351d2572fd33b806dcd
   specs:
     jruby_mahout (0.2.3)
       redis (~> 3.0)

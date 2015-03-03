@@ -14,6 +14,21 @@ module UsersHelper
     result 
   end
   
+  
+  def new_model_recomend_array
+    [[ "Random", "RandomRecommender" ],["Top","ItemAverageRecommender"]]
+  end
+  
+  def new_model_recomend_array_selected
+    result =[ "Random", "RandomRecommender" ]
+    if rc = params[:recommender]
+      if rc !=  "RandomRecommender"
+        result =["Top","ItemAverageRecommender"]
+      end
+    end
+    result 
+  end
+  
   def similarity_array
     [[ "Pearson Correlation", "PearsonCorrelationSimilarity" ],
      [ "Jaccard Coefficient", "TanimotoCoefficientSimilarity" ],

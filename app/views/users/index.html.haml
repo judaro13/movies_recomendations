@@ -1,4 +1,13 @@
 #album.releases.spacer
+  .row{style: "text-align: right;"}
+    .col-xs-12
+      .col-sm-6
+      .col-sm-6
+        = form_tag users_path, method: :get, class: 'form-inline' do
+          .form-group
+            = text_field_tag "q", '', class: 'form-control'
+          = submit_tag("Find!", class: 'btn btn-primary')
+        = link_to 'add User', new_user_path
   %h3
     Users
   .row
@@ -11,6 +20,8 @@
             %h5 
               =link_to user.name, user_path(user)
             %p
+              ="@"+user.nick.to_s
+              %br
               Voted Movies
               =user.voted_movies.count
     = will_paginate @users

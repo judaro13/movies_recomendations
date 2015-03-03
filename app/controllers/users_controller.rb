@@ -4,19 +4,30 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all.paginate(:page => params[:page], :per_page => 28)
+    if q = params[:q]
+      q = "%#{q}%"
+      @users = User.where("name like ? or nick like ? or id = ?",q,q,q).paginate(:page => params[:page], :per_page => 28)
+    end
+    @users ||= User.all.paginate(:page => params[:page], :per_page => 28)
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
-    similarity = params['similarity'] || "PearsonCorrelationSimilarity"
-    recommender = params['recommender'] || "GenericUserBasedRecommender"
-    size = params['size'] || 10
-    path = Rails.root.to_s+'/db/loaded-raitings.csv'
-    values = {:similarity => similarity, :recommender => recommender, :neighborhood_size => size.to_i}
-    @recommender = JrubyMahout::Recommender.new(values) 
-    @recommender.data_model = JrubyMahout::DataModel.new('file', { :file_path => path  }).data_model
+    if @user.ratings.count > 0
+      similarity = params['similarity'] || "PearsonCorrelationSimilarity"
+      recommender = params['recommender'] || "GenericUserBasedRecommender"
+      size = params['size'] || 10
+      path = Rails.root.to_s+'/db/loaded-raitings.csv'
+      values = {:similarity => similarity, :recommender => recommender, :neighborhood_size => size.to_i}
+      @recommender = JrubyMahout::Recommender.new(values) 
+      @recommender.data_model = JrubyMahout::DataModel.new('file', { :file_path => path  }).data_model
+    else
+      recommender = params['recommender'] || "ItemAverageRecommender"
+      path = Rails.root.to_s+'/db/loaded-raitings.csv'
+      @recommender = JrubyMahout::Recommender.new({:recommender => recommender}) 
+      @recommender.data_model = JrubyMahout::DataModel.new('file', { :file_path => path  }).data_model
+    end
   end
 
   # GET /users/new
@@ -32,7 +43,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-
+    
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
@@ -76,6 +87,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:id, :name, :image_url, :handle)
+      params.require(:user).permit(:id, :name, :image_url, :nick)
     end
 end

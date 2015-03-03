@@ -1,0 +1,39 @@
+#album.releases.spacer
+  %h3
+    = @user.name + " | "+'@'+@user.nick.to_s
+  .row
+    .col-sm-3.col-xs-5
+      - img = @user.image_url || 'http://bit.ly/1LyW7qK'
+      = image_tag  img.gsub('_normal',''), style: "max-height: 500px;max-width: 200px;"
+      %p
+      %p
+        %strong Id:
+        = @user.id
+      %p
+        %strong Voted Movies:
+        = @user.voted_movies.count
+    .col-sm-9.col-xs-7
+      %h3
+        Suggested Movies
+      %p
+        %h5
+          Modify Suggestions
+        .form-group
+          = form_tag user_path(@user), method: :get, class: 'form-inline' do
+            %label Model Reccomender
+            =select_tag "recommender", options_for_select(new_model_recomend_array, new_model_recomend_array_selected), class: 'form-control'
+            =submit_tag("Go!", class: 'btn btn-primary')
+      -@recommender.recommend(1, 20, nil).each do |m_pair|
+        -movie = Movie.find(m_pair.first)
+        .col-sm-3.col-xs-7
+          .album2.animated.fadeInUp
+            %img.img-responsive{:alt => "music theme", :src => movie.image_url, styles: "height: '160px'"}/
+            .albumdetail
+              %h5 
+                =link_to movie.name, movie_path(movie)
+              Estimate:
+              = m_pair.last
+              =@user.ratings.where(movie_id: m_pair.first).first.to_s
+    %p
+
+  = link_to 'Back',users_path

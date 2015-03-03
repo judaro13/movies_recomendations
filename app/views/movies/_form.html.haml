@@ -1,0 +1,28 @@
+= form_for(@movie, class: 'form-horizontal') do |f|
+  - if @movie.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@movie.errors.count, "error")
+        prohibited this movie from being saved:
+      %ul
+        - @movie.errors.full_messages.each do |message|
+          %li= message
+  - if @movie.new_record?
+    .form-group
+      = f.label :id, class: 'control-label'
+      %br/
+      = f.number_field :id, class: 'form-control'
+  .form-group
+    = f.label :name, class: 'control-label'
+    %br/
+    = f.text_field :name, class: 'form-control'
+  .form-group
+    = f.label :image_url, class: 'control-label'
+    %br/
+    = f.text_field :image_url, class: 'form-control'
+  .form-group
+    = f.label :genders, class: 'control-label'
+    %br/
+    = f.text_area :genders, class: 'form-control'
+  .actions
+    = f.submit

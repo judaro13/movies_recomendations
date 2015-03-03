@@ -8,11 +8,11 @@
   %body
     .navbar-wrapper
       .container
-        #top-nav.navbar.navbar-inverse.navbar-fixed-top.animated.fadeInDown{:role => "navigation"}
+        .navbar.navbar-inverse.navbar-fixed-top.animated.fadeInDown{:role => "navigation"}
           .container
             .navbar-header
               / Logo Starts
-              %a.navbar-brand{:href => "#home"}
+              %a.navbar-brand{:href => "/"}
                 Movies Recommender
               %button.navbar-toggle.collapsed{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
                 %span.sr-only Toggle navigation
@@ -25,14 +25,14 @@
                   %a{:href => users_path} Users
                 %li
                   %a{:href => movies_path} Movies
-            
+    %br
     .container.overlay
-      #home.homeinfo
+      #home
         = yield
       
     #footer
       .container
-        Something here
+        By dr.juliana10 and go.laura10, Sistemas de Recomendaciones, Universidad de los Andes - 2015
         
         
         

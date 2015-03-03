@@ -7,5 +7,7 @@ class Rating < ActiveRecord::Base
   #value -> rating
 #   #count -> total voted
 #   attr_accessible :id, :user_id, :movie_id, :value, :count
+  
+  validates_uniqueness_of :user_id, :scope => :movie_id
 
 end

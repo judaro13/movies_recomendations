@@ -1,11 +1,13 @@
 class User < ActiveRecord::Base
   has_many :ratings
   #id: 
-  #twitter_id
   #name
   #image_url
   #nick: twitter nick
 #   attr_accessible :id, :name, :image_url, :handle
+  
+  validates_uniqueness_of :id, :nick
+  
   
   def voted_movies
     c = []
