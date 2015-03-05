@@ -18,7 +18,7 @@
             - img = user.image_url || 'http://bit.ly/1LyW7qK'
             %img.img-responsive{:alt => "music theme", :src => img.gsub('_normal','') , styles: "height: '199px'"}/
             .albumdetail
-              %h5 
+              %h5
                 =user.name
               %p
                 ="@"+user.nick.to_s

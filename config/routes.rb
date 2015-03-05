@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
   root 'users#index'
+
+  get 'ratings/evaluation' => 'ratings#evaluation'
+
   resources :ratings
 
   resources :movies
+
+  #get 'users/newwithmoviesvote' => 'users#newwithmoviesvote'
 
   resources :users do
     member do

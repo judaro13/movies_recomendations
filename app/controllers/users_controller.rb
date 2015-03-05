@@ -23,12 +23,12 @@ class UsersController < ApplicationController
       size = params['size'] || 10
       path = Rails.root.to_s+'/db/loaded-raitings.csv'
       values = {:similarity => similarity, :recommender => recommender, :neighborhood_size => size.to_i}
-      @recommender = JrubyMahout::Recommender.new(values) 
+      @recommender = JrubyMahout::Recommender.new(values)
       @recommender.data_model = JrubyMahout::DataModel.new('file', { :file_path => path  }).data_model
     else
       recommender = params['recommender'] || "ItemAverageRecommender"
       path = Rails.root.to_s+'/db/loaded-raitings.csv'
-      @recommender = JrubyMahout::Recommender.new({:recommender => recommender}) 
+      @recommender = JrubyMahout::Recommender.new({:recommender => recommender})
       @recommender.data_model = JrubyMahout::DataModel.new('file', { :file_path => path }).data_model
     end
   end
@@ -46,7 +46,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-    
+
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
@@ -81,7 +81,7 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   def vote
     if rank = @user.ratings.where(movie_id: params[:movie_id]).first
       rank.value = params[:value].to_i
