@@ -13,6 +13,6 @@ Verified you have installed Virtual Java Machine (VJM)
 
 == About jruby mahout
 
-Please got to jruby mahout to check documentation
+Please visit jruby mahout to check documentation
 https://github.com/daifu/jruby_mahout
 
